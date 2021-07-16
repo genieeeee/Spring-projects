@@ -1,0 +1,104 @@
+@CHARSET "utf-8";
+#main{
+	margin:0px auto;
+	text-align:center;
+	border:1px solid #999;
+	border-radius:8px;
+}
+table{
+	width:750px;
+	margin:0px auto;
+}
+textarea{
+	margin:0px auto;
+}
+#commentP{
+	text-align:right;
+}
+#one{
+	border-top:1px solid;
+	border-bottom:1px solid;
+}
+#two{
+	width:750px;
+	margin:0px auto;
+	border:1px solid #999;
+	border-radius:8px;
+}
+#three{
+	border-top:1px dotted gray;
+
+	width:750px;
+	height:90px;
+	margin:0px auto;
+	text-align:left;
+}
+#four{
+	width:750px;
+	margin:0px auto;
+	text-align:left;
+}
+#five{
+	margin:0px auto;
+}
+#title{
+	text-align:center;
+	color: #268463;
+	border:1px solid #999;
+	border-radius:8px;
+}
+#comment th{
+	width:100px;
+}
+#comment{
+	border-color: #f5f5f5;
+	height:150px;
+}
+#comment td{
+	text-align:center;
+} 
+#four th{
+	width:150px;
+}
+#del1{
+	width:70px;
+	height:30px;
+	border:0px;
+	border-radius:10px;
+	background-color: #268463;
+	cursor:pointer;
+	color:#ffffff;;
+	outline: 0;
+}
+#back{
+	width:70px;
+	height:30px;
+	border:0px;
+	border-radius:10px;
+	background-color: #268463;
+	cursor:pointer;
+	color:#ffffff;;
+	outline: 0;
+}
+#ok{
+	width:50px;
+	height:30px;
+	border:0px;
+	border-radius:10px;
+	background-color: #268463;
+	cursor:pointer;
+	color:#ffffff;
+	outline: 0;
+	margin-left: 10px;
+}
+#del2{
+	border-color:#268463;
+	background: white;	
+	border-radius: 10px;
+}
+#recomment{
+	resize: none;
+}
+div{
+	word-break: break-all;
+}

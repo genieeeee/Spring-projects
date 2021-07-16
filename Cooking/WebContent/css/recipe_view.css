@@ -1,0 +1,158 @@
+@CHARSET "utf-8" ;
+#viewH2{
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: 0px;
+	padding-top: 0px;
+}
+
+#viewArticle{
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #ffffff;
+}
+
+#viewSection{
+	width: 800px;
+    height: auto;
+    margin: 0px auto;
+    padding-bottom: 0px;
+    border: 1px solid #268463;
+}
+
+.viewHR{
+	border: 1px solid #268463;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+#categoryh4{
+	text-align: center;
+	margin-top: 0px;
+}
+
+#imgDiv{
+	text-align: center;
+}
+
+#mainImg{
+	width: 550px;
+	height: 673px;
+}
+
+#simpleDiv{
+	padding-top: 15px;
+	padding-left: 10px;
+	padding-bottom: 15px;
+	text-align: center;
+	word-break:break-all;
+}
+
+#materialDiv{
+	padding-top: 5px;
+	padding-bottom: 5px;
+    padding-left: 30px;
+}
+#materialUl{
+	list-style: none;
+	margin-left: -20px;
+}
+
+#time_priceDiv{
+	padding-top: 5px;
+	padding-bottom: 5px;
+    padding-left: 30px;
+}
+
+#timeUl, #priceUl{
+	list-style: none;
+}
+
+#stepTable{
+	margin: auto;
+}
+
+#stepTable td{
+	width: 300px;
+	height: 300px;
+}
+
+.imgTD{
+	text-align: center;
+}
+
+.stepImg{
+	width: 300px;
+	height: 200px;
+	padding-right: 10px;
+}
+
+#buttonDiv{
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+#optionDiv{
+	text-align: right;
+    padding-top: 5px;
+    padding-bottom: 20px;
+	margin-right: 15px;
+}
+#listButton{
+	width: 70px;
+    height: 30px;
+    border: 0px;
+    border-radius: 10px;
+    background-color: #268463;
+    color: #ffffff;
+    cursor: pointer;
+    outline: 0;
+}
+
+#modifyButton, #deleteButton{
+	width: 50px;
+    height: 30px;
+    border: 0px;
+    border-radius: 10px;
+    background-color: #268463;
+    color: #ffffff;
+    cursor: pointer;
+    outline: 0;
+}
+
+button {
+	text-align: center;
+	border: 0px;
+    width: 70px;
+    height: 60px;
+    border-radius: 15px;
+    background-color: #268463;
+    color: #ffffff;
+    cursor: pointer;
+    outline: 0;
+}
+
+#upPageP{
+	margin-bottom: 4px;
+}
+#downPageP{
+	margin-top: 4px;
+}
+
+span{
+    display: block;
+    float: left;
+    width: 70px;
+    text-align: center;
+    font-weight: 900;
+}
+
+.pageA{
+	text-decoration: none;
+    color: #268463;
+    font-weight: 900;
+}
+
+.pageFont{
+}

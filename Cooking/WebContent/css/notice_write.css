@@ -1,0 +1,57 @@
+@CHARSET "utf-8" ;
+
+#table_cap2{
+	text-align:center;
+}
+
+form{
+	height:auto;
+	marign:0px auto;
+	
+}
+#noti_w_t{
+	margin:0px auto;
+	text-align: center;
+	width:800px;
+	height:500px;
+	
+}
+#notice_w_td2{
+	text-align:center;
+	width:120px;
+	height:350px;
+	
+}
+#notice_w_td1{
+	text-align:center;
+	width:120px;
+	height:60px;
+	
+	
+}
+ input[type='text']{
+	padding:13px;
+} 
+textarea{
+	text-align: left;
+	resize: none;
+}
+fieldset{
+	width:850px;
+	height:auto;
+	margin:0px auto;
+	border:2px solid #black;
+	padding:30px;
+}
+#b{
+		width:50px;
+		height:30px;
+		border:0px;
+		border-radius:10px;
+		background-color: #268463;
+		cursor:pointer;
+		color:#ffffff;;
+		outline: 0;
+		cursor:pointer;
+	
+}

@@ -1,0 +1,392 @@
+@CHARSET "utf-8" ;
+body{
+	width:1000px;
+	margin: 0px auto;
+	overflow-y:scroll;
+	background:#f1f1f2;
+}
+section > article{
+	text-align: center;
+}
+header{
+	width:1000px;		
+}
+#header_login{
+	width:1000px;	
+}
+#header_login p {
+	font-size:14px;
+	text-align:right;
+	color: black;
+}
+header h1{
+	text-align:center;
+	font-size:30px;		
+}
+header #header_nav{
+	background-color:none;
+}
+
+#header_nav table a{
+	text-decoration:none;
+	color: white;	
+}
+section{
+ 	width:1000px;
+ 	height:auto;
+ 	margin:0px auto;
+ 	padding-bottom: 100px;
+	background:white;
+}
+footer{
+	width:auto;
+	clear:both;
+	text-align:center;
+	font-size:10px;
+	/* background:#74b243; */
+	/* background:#009949; */
+	background:#269463;
+	height:120px;
+}
+#footer_p1{
+	text-align: center;
+}
+.f_a{
+	text-decoration: none;
+	color:white;	
+}
+.f_a:hover{
+	text-decoration:underline;
+}
+.f_a3{
+	text-decoration: none;
+	color:black;
+}
+.f_a3:hover{
+	text-decoration:underline;
+}
+.f p{
+	color: white;
+	font-size: 12px;
+}
+#f_1{
+	color: white;
+	font-size: 11px;
+	text-align: center;
+}
+.main_arti1{
+	width:1000px;
+	height:460px;
+	margin:0px auto;
+	
+}
+
+#body_hot_recipe_table {
+	margin:0px auto;
+	width:900px;
+	background: white;
+	height:380px;	
+}
+#body_hot_recipe_more{
+	text-align:right;
+}
+#body_hot_recipe_more a{
+	text-decoration:none;
+	color:black;
+}
+#body_hot_recipe_tbody td{
+	border-top:3px solid #e1e1e1;
+	border-bottom: 3px solid #e1e1e1;
+}
+
+#today_recom_more{
+	text-align:right;
+	border-bottom:3px solid #f4f4f7;
+	
+}
+#today_recom_more a{
+	text-decoration:none;
+	color:black;
+}
+#today_recom_tr2{
+	height:274px;	
+}
+#spe_no{
+	width:20px;
+	text-align: center;
+}
+#spe_name{
+	width:50px;
+	text-align: center;
+}
+#spe_content{
+	width:130px;
+	text-align:left;
+	
+}
+
+#spe_date{
+	width:40px;
+}
+
+
+#spe_view td{
+	height:25px;
+	
+}
+#spe_view_more{
+	height:25px;
+}
+#spe_view_more a{
+	text-decoration:none;
+	color:black;	
+}
+#spe_view_list{
+	padding:30px;
+	margin:0px auto;
+	width:430px;
+}
+#spe_view_list_No{
+	width:30px;
+}
+#spe_view_list_wri{
+	width:50px;
+}
+#spe_view_list_date{
+	width:80px;
+}
+#spe_view_list_paging{
+	text-align:center;
+}
+
+#notice_more{
+	text-decoration:none;
+	color:black;
+	text-align:right;
+	border-bottom:3px solid #f4f4f7;			
+}
+
+#notice_td{
+	text-align:left;
+}
+#notice_t_header{
+	border-bottom:3px solid #f4f4f7;
+	text-align:left;
+	
+}
+#etc{
+	width:530px;	
+}
+
+
+.main_arti3{
+	width:1000px;
+	height:230px;
+	margin:0px auto;	
+}
+aricle{
+	text-align:center;
+}
+.main_table2{
+	margin:0px auto;
+	width:900px;
+	height:352px;	
+/* 	border-top:3px solid #f4f4f7;
+	border-bottom:3px solid #f4f4f7; */
+	border:3px solid #e1e1e1;
+}
+#today_recom{
+	width:260px;
+	float:left;
+	padding:20px;
+	height:350px;
+	vertical-align: top;
+}
+#kind_food{
+	width:530px;
+	height:350px;	
+}
+.main_table3{
+	margin:0px auto;
+	width:900px;
+	height:220px;
+	border-top:3px solid #e1e1e1;
+	border-right:3px solid #e1e1e1;
+	border-left:3px solid #e1e1e1;
+	border-bottom:3px solid #e1e1e1;
+	
+}
+
+
+
+#spe_view{
+	padding:20px;
+	width:530px;
+	height:350px;	
+}
+#body_hot_recipe_thead td{
+	width:255px;
+	height:40px;	
+}
+
+#hot_td1{
+	border-left:3px solid #e1e1e1;	
+	width:367px;
+}
+#hot_td2{	
+
+	width:367px;	
+}
+#hot_td3{
+	width:367px;
+	border-right:3px solid #e1e1e1;
+}
+#body_hot_recipe_tbody{
+	height:358px;
+}
+#hot_recipe_img{
+	width:250px;
+	height:170px;
+}
+#main_table2_td1{
+	width:293px;
+	height:352px;
+	border-right:3px solid #e1e1e1;
+}
+#today_recom{
+	width:290px;
+	height:352px;
+}
+#spe_view{
+	width:593px;
+	height:360px;
+	padding:10px;
+}
+#m_t_n_td1{
+	width:295px;
+	border-right:3px solid #e1e1e1;
+}
+#notice{
+	padding:20px;
+	width:290px;
+	float:left;
+	height:230px;	
+}
+#notice a{
+	text-decoration:none;
+	color:black;
+	font-size: 15px;		
+}
+#today_recom_title{
+	height:33px;
+	text-align:left;
+	border-bottom: 3px solid #f4f4f7;
+}
+#today_img{
+	width:220px;
+	height:140px;
+	padding-bottom: 25px;
+}
+#more{
+	font-size:15px;
+	/* color: #79b73c; */
+}
+
+#spe_rev_text{
+	font-size: 21px;
+}
+#spe_review_td{
+	text-align: left;
+	border-bottom:3px solid #f4f4f7;
+	height:44px;
+}
+#spe_view_more{
+	text-align:right;
+	border-bottom:3px solid #f4f4f7;
+	height:44px;
+}
+#spe_no,#spe_name,#spe_content1,#spe_date,#spe_content{
+	border-bottom:1px solid #f4f4f7;
+	
+}
+#spe_content1{
+	width: 220px;
+}
+#hot_reci_title{
+	text-align: left;
+}
+
+#header_table{
+	width:1000px;
+	text-align:center;
+	height: 63px;
+	font-size:22px;
+	margin:0px auto;
+	
+}
+#td1,#td2,#td3,#td4,#td5{
+	width:120px;
+	font-size:22px;
+	height:56px;
+}
+
+#user_name{
+	color:#269463;
+}
+#spe_content a{
+	text-decoration:none;
+	color:black;
+}
+#spe_content a:hover{
+	text-decoration:underline;
+}
+#notice_td a:hover{
+	text-decoration:underline;
+}
+#td1:hover,#td2:hover,#td3:hover,#td4:hover,#td5:hover{
+	background:#218559;
+}
+.main_arti2{
+	width:1000px;
+	height:385px;
+	margin:0px auto;
+	text-align: center;
+	padding-top:15px;
+}
+#hot_reci_ta{
+	width:900px;
+	margin:0px auto;
+	
+}
+#hot_reci_title2{
+	width:770px;
+	text-align:left;
+	font-size: 28px;
+}
+#notice_t_header1{
+	border-bottom:3px solid #f4f4f7;
+	width:40px;
+}
+#body_hot_recipe_table td{
+	width:285px;
+}
+#main_img{
+	width:400px; 
+	height:185px;
+	padding-left:310px;
+	padding-bottom:30px;
+	margin:0px auto;
+}
+#body_hot_recipe_tbody img:hover{
+	
+	cursor:pointer;
+	-webkit-transform:scale(1.1);
+	-webkit-transition: transform .35s;
+	
+}
+
+#today_img:hover{
+		cursor:pointer;
+	-webkit-transform:scale(1.1);
+	-webkit-transition: transform .35s;
+}

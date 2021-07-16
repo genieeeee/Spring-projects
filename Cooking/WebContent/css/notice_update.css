@@ -1,0 +1,10 @@
+@CHARSET "utf-8" ;
+#u_n_t{
+	text-align: center;
+}
+#c{
+	padding-top:10px;
+}
+textarea {
+	resize: none;
+}

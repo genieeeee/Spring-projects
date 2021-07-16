@@ -1,0 +1,171 @@
+@CHARSET "utf-8" ;
+#writeH2{
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 15px;
+	padding-top: 0px;
+}
+
+#writeArticle{
+	padding-top: 20px;
+	background-color: #ffffff;
+}
+
+#writeSection{
+	width: 800px;
+    height: auto;
+    margin: 0px auto;
+    padding-bottom: 20px;
+}
+
+#writeTable{
+	border: 1px solid #268463;
+	margin: 0px auto;
+	width: 700px;
+}
+#writeTable th{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	width: 150px;
+}
+#writeTable td{
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+#recipe_title{
+	width: 500px;
+}
+
+#recipe_material_main{
+	margin-bottom: 10px;
+}
+
+.recipe_material_side{
+	margin-bottom: 3px;
+}
+
+textarea{
+	resize: none;
+}
+
+#recipe_simple_comment{
+	width: 500px;
+	height: 80px;
+}
+#text_1,#text_2,#text_3,#text_4,#text_5,#text_6,#text_7,#text_8,#text_9,#text_10{
+	width: 450px;
+	height: 80px;
+}
+
+#img_main{
+	width: 440px;
+	height: 538px;
+}
+#img_1,#img_2,#img_3,#img_4,#img_5,#img_6,#img_7,#img_8,#img_9,#img_10{
+	width: 300px;
+	height: 200px;
+}
+
+#div_1,#div_2,#div_3,#div_4,#div_5,#div_6,#div_7,#div_8,#div_9,#div_10,#stepDiv{
+	margin-left: 50px;
+	margin-right: 50px;
+	padding-top: 1px;
+	padding-left: 50px;
+	border-left: 1px solid #268463;
+	border-right: 1px solid #268463;
+}
+
+h3{
+	margin-bottom: -10px;
+}
+
+#stepDiv,#subDiv{
+	padding-top: 4px;
+}
+
+#stepDiv{
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
+
+#subDiv{
+	text-align:right;
+	margin-left: 50px;
+	margin-right: 50px;
+	border-top: 1px solid #268463;
+	padding-bottom: 9px;
+	padding-right: 9px;
+	padding-top: 9px;
+}
+
+#resetButton{
+	margin-right: 10px;
+}
+
+#stepAddButton{
+	margin-left: 10px;	
+}
+
+#stepAddButton, #stepDelButton{
+    width: 75px;
+	height: 30px;
+	border: 0px;
+	border-radius: 15px;
+    background-color: #268463;
+    color: #ffffff;
+    cursor: pointer;
+    outline: 0;
+}
+
+#submitButton, #resetButton{
+	width: 50px;
+	height: 30px;
+	border: 0px;
+	border-radius: 10px;
+    background-color: #268463;
+    color: #ffffff;
+    cursor: pointer;
+    outline: 0;
+}
+
+/**file 버튼 바꾸기*/
+input[type='file']::-webkit-file-upload-button{
+		cursor:pointer;
+	}
+
+#file_main_Button, #file_Button_1, #file_Button_2, #file_Button_3, #file_Button_4, #file_Button_5, #file_Button_6, #file_Button_7, #file_Button_8, #file_Button_9, #file_Button_10{
+	width: 70px;
+	height: 25px;
+	position: absolute;
+	border: 0px;
+	border-radius: 10px;
+    background-color: #268463;
+    color: #ffffff;
+    cursor: pointer;
+    outline: 0;
+}
+#file_main_text, #file_text_1, #file_text_2, #file_text_3, #file_text_4, #file_text_5, #file_text_6, #file_text_7, #file_text_8, #file_text_9, #file_text_10{
+	border: 0px;
+	height: 20px;
+	padding-left: 5px;.
+	cursor: pointer;
+}
+#file_main, #file_1, #file_2, #file_3, #file_4, #file_5, #file_6, #file_7, #file_8, #file_9, #file_10{
+	width: 70px;
+	height: 25px;
+	opacity: 0;
+	position: relative;
+}
+
+/**수정관련*/
+#mainimgButton, #imgButton_1, #imgButton_2, #imgButton_3, #imgButton_4,#imgButton_5, #imgButton_6, #imgButton_7, #imgButton_8, #imgButton_9, #imgButton_10{
+	width: 90px;
+    height: 25px;
+	border: 0px;
+	border-radius: 10px;
+    background-color: #268463;
+    color: #ffffff;
+    cursor: pointer;
+    outline: 0;
+} 

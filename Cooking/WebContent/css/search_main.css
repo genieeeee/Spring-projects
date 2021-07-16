@@ -1,0 +1,182 @@
+@CHARSET "UTF-8";
+
+form{
+	margin: 0px auto;
+	width: 900px;
+	text-align: center;
+}
+
+#search_main_table_1, #search_main_table_2, #search_main_table_3{
+	width: 900px;
+/* 	border: 1px solid green; */
+}
+#search_main_table_2{
+	border: 1px solid #e1e1e1;
+}
+
+#search_main_table_2 td{
+	border: 1px solid #e1e1e1;
+}
+
+#search_main_table_3{
+	margin: 0px auto;
+	width: 900px;
+}
+
+#search_main_table_1 tr, #search_main_table_2 tr{
+	height: 30px;
+}
+
+#search_main_table_3 > tbody > tr > td{
+	border-bottom: 1px solid #e1e1e1;
+}
+
+#search_main_table_1 .td_1{
+	margin: 0px auto;
+	border: 0px;
+	width: 140px;
+	text-align: left;
+	padding: 0px;
+}
+#search_main_table_1 .td_1 select{
+	width: 134px;
+	height: 25px;
+	text-align: center;
+}
+
+#search_main_table_1 .td_2{
+	border: 0px;
+	width: 540px;
+}
+
+#search_main_table_1 .td_2 input[type='text']{
+	width: 680px;
+	height: 20px;
+	font-size: 19px;
+}
+
+#search_main_table_1 .td_3{
+	border: 0px;
+	text-align: center;
+}
+
+#search_main_table_1 .td_3 input{
+	/* width: 80px;
+	height: 26px; */
+	
+	margin: 0px auto;
+	width: 50px;
+    height: 30px;
+    border: 0px;
+    border-radius: 10px;
+    background-color: #268463;
+    color: #ffffff;
+    cursor: pointer;
+    outline: 0;
+}
+
+
+#search_main_table_2 > tbody > tr .td_1{
+	width: 140px;
+	text-align: center;
+	/* background-color: #6dcc27; */
+	color: black;
+	font-family: 돋움;
+}
+
+#search_main_table_2 > tbody > tr > .td_2{
+	width: 600px;
+	text-align: left;
+	font-size: 14px;
+	/* background-color: #92d83d; */
+	color: black;
+	
+}
+
+#search_main_table_2 > tbody > tr > .td_3{
+	padding: 0px;
+	margin: 0px auto;
+}
+
+/* #search_main_table_2 > tbody > tr > .td_3 input[type='button']{
+	width: 80px;
+	height: 50px;
+	margin: 0px auto;
+}
+
+#search_main_table_2 > tbody > tr > .td_3 input[type='reset']{
+	width: 80px;
+	margin: 0px auto;
+	height: 25px;
+} */
+
+
+.searchList_img{
+	height: 150px;
+	width: 150px;
+	background-color: silver;
+	margin: 10px auto;
+	
+}
+
+
+.table_3 td{
+	padding: 10px;
+}
+
+
+
+.table_3 > tbody > tr{
+	height: 170px;
+}
+
+#search_main_table_3 .td_1{
+	width: 150px;
+}
+
+.table_4{
+	height: 170px;
+	width: 700px;
+}
+
+.table_4 .tr_1 td{
+	vertical-align: top;
+	padding: 0px;
+	font-size: 18px;
+	height: 18px;
+	color: red;
+	text-indent: 5px;
+}
+
+.table_3 .tr_2 td{
+	vertical-align: top;
+	padding: 0px;
+	font-size: 14px;
+	height: 80px;
+	color: black;
+	text-indent: 5px;
+	padding: 5px;
+	word-break: break-all;
+}
+
+.table_4 .tr_3 td{
+	vertical-align: top;
+	padding: 0px;
+	font-size: 14px;
+	height: 14px;
+	color: silver;
+	text-indent: 20px;
+	padding: 5px;
+}
+
+.table_3 a{
+	text-decoration: none;
+	color:black;
+	font-weight: bold;
+}
+.table_3 a:hover{
+	
+	text-decoration: underline;
+}
+
+

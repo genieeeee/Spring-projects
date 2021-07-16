@@ -1,0 +1,75 @@
+@CHARSET "utf-8";
+
+#pop_td1{
+	height:80px;
+	font-size: 25px;
+}
+
+#pop_td6 input[type="submit"]{
+		width:18px;
+		height:17px;
+		border:0px;
+		border-radius:50px;
+		background-color: #3b6210;
+		cursor:pointer;
+		color:#ffffff;;
+		outline: 0;
+		cursor:pointer;
+}
+table{
+	padding-top:10px;
+	margin:0px auto;
+	width:370px;
+	height:400px;
+	padding:20px;
+}
+form{
+	background:black;
+	margin:0px auto;
+	width:370px;
+	height:400px;
+	background-image: url(../img/팝업배경.PNG) ;
+	border-radius: 20px;
+	background-repeat: no-repeat;
+	background-size: 380px;
+}
+#pop_td2{
+	witdh:200px;
+	height:20px;
+	border:1px solid black;
+}
+#pop_td4{
+	font-size:12px;
+	text-align: center;
+	height:70px;
+	
+}
+#temp_td{
+	width:30px;
+}
+
+#pop_td3{
+	font-size:11px;
+	height:70px;
+	text-align: center;
+	padding:5px;
+	width:220px;
+}
+#pop_td6{
+	text-align:right;
+	height:40px;
+}
+#point{
+	text-size:12px;
+	color: #3b6210;
+}
+#temp_td2{
+	width:25px;
+}
+#pop_td5{
+	text-align: left;
+	height:40px;
+	width:350px;
+	color: white;
+	font-size: 12px;
+}

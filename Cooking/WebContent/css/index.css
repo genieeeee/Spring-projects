@@ -1,0 +1,38 @@
+@CHARSET "UTF-8";
+
+.hot_td{
+	width: 290px;
+}
+
+.hot_td .article_1{
+	font-size: 24px;
+	margin-bottom: 15px;
+	padding-top: 25px;
+	
+}
+
+
+.hot_td a{
+	text-decoration:none;
+	color:black;
+}
+
+#main_table2_td1 a{
+	text-decoration:none;
+	color:black;
+}
+
+#font_1{
+	font-size: 30px;
+}
+
+.hot_td .article_2{
+	margin-bottom: 10px;
+	font-size: 16px;
+	font-family: 돋움;
+	text-decoration:none;
+	color:black;
+}
+#font_2{
+	font-size: 15px;
+}
