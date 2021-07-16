@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pd.pdmm.model">
+	<select id="salesMinDate" resultType="String">
+		select min(to_char(air_bookdate, 'YYYY-MM-DD')) from pd_airbookinfo
+	</select>
+	<select id="salesMaxDate" resultType="String">
+		select max(to_char(air_bookdate, 'YYYY-MM-DD')) from pd_airbookinfo
+	</select>
+	<select id="salesBetweenDate" resultType="int">
+		select max(to_date(to_char(sysdate, 'YYYY-MM-DD'), 'yyyy-mm-dd')) -  
+		min(to_date(to_char(air_bookdate, 'YYYY-MM-DD'), 'yyyy-mm-dd')) 
+		from pd_airbookinfo
+	</select>
+	<select id="air_CRM_line_xyz" parameterType="map" resultType="pd.pdmm.model.PdMMCrmDTO">
+		select mem_age, air_totalprice, air_bookdate
+		from pd_airbookinfo ,(select mem_age, air_booknum 
+		from pd_airbooknum, (select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age, mem_id
+		from (select mem_id, mem_birth from pd_member)a)b
+		where pd_airbooknum.mem_id = b.mem_id)c
+		where pd_airbookinfo.air_booknum = c.air_booknum 
+		and air_bookdate <![CDATA[ >= ]]> #{startDate} and air_bookdate <![CDATA[ < ]]> #{endDate}
+		order by air_bookdate asc
+	</select>
+	<select id="air_CRM_area_xyz" parameterType="map" resultType="pd.pdmm.model.PdMMCrmDTO">
+		select mem_nation, air_totalprice, air_bookdate
+		from pd_airbookinfo, (select mem_nation, air_booknum 
+		from pd_airbooknum, (select mem_id, mem_nation from pd_member)a
+		where pd_airbooknum.mem_id = a.mem_id)b
+		where pd_airbookinfo.air_booknum = b.air_booknum
+		and air_bookdate <![CDATA[ >= ]]> #{startDate} and air_bookdate <![CDATA[ < ]]> #{endDate}
+		order by air_bookdate asc
+	</select>
+	<select id="air_CRM_bar_xyz" parameterType="map" resultType="pd.pdmm.model.PdMMCrmDTO">
+		select air_goDestination, air_totalPrice, air_bookdate
+		from pd_airbookinfo, pd_airgoinfo, (select air_booknum, air_gobooknum from pd_airbooknum)a
+		where pd_airbookinfo.air_booknum = a.air_booknum and pd_airgoinfo.air_gobooknum = a.air_gobooknum
+		and air_bookdate <![CDATA[ >= ]]> #{startDate} and air_bookdate <![CDATA[ < ]]> #{endDate}
+		order by air_bookdate asc
+	</select>
+	<select id="air_CRM_donut_xyz" parameterType="map" resultType="pd.pdmm.model.PdMMCrmDTO">
+		select mem_sex, air_totalPrice, air_bookdate
+		from pd_airbookinfo, (select mem_sex, air_booknum
+		from pd_airbooknum, (select mem_sex, mem_id from pd_member)a
+		where pd_airbooknum.mem_id = a.mem_id)b
+		where pd_airbookinfo.air_booknum = b.air_booknum
+		and air_bookdate <![CDATA[ >= ]]> #{startDate} and air_bookdate <![CDATA[ < ]]> #{endDate}
+		order by air_bookdate asc
+	</select>
+	<select id="air_CRM_line_all" resultType="pd.pdmm.model.PdMMCrmDTO">
+		select mem_age, air_totalprice, air_bookdate
+		from pd_airbookinfo ,(select mem_age, air_booknum 
+		from pd_airbooknum, (select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age, mem_id
+		from (select mem_id, mem_birth from pd_member)a)b
+		where pd_airbooknum.mem_id = b.mem_id)c
+		where pd_airbookinfo.air_booknum = c.air_booknum
+		order by air_bookdate asc
+	</select>
+	<select id="air_CRM_area_all" resultType="pd.pdmm.model.PdMMCrmDTO">
+		select mem_nation, air_totalprice, air_bookdate
+		from pd_airbookinfo, (select mem_nation, air_booknum 
+		from pd_airbooknum, (select mem_id, mem_nation from pd_member)a
+		where pd_airbooknum.mem_id = a.mem_id)b
+		where pd_airbookinfo.air_booknum = b.air_booknum
+		order by air_bookdate asc
+	</select>
+	<select id="air_CRM_bar_all" resultType="pd.pdmm.model.PdMMCrmDTO">
+		select air_goDestination, air_totalPrice, air_bookdate
+		from pd_airbookinfo, pd_airgoinfo, (select air_booknum, air_gobooknum from pd_airbooknum)a
+		where pd_airbookinfo.air_booknum = a.air_booknum and pd_airgoinfo.air_gobooknum = a.air_gobooknum
+		order by air_bookdate asc
+	</select>
+	<select id="air_CRM_donut_all" resultType="pd.pdmm.model.PdMMCrmDTO">
+		select mem_sex, air_totalPrice, air_bookdate
+		from pd_airbookinfo, (select mem_sex, air_booknum
+		from pd_airbooknum, (select mem_sex, mem_id from pd_member)a
+		where pd_airbooknum.mem_id = a.mem_id)b
+		where pd_airbookinfo.air_booknum = b.air_booknum
+		order by air_bookdate asc
+	</select>
+</mapper>	
+
+
+

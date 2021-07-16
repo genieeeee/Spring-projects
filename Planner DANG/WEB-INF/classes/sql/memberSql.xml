@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pd.member">
+   <insert id="memInsert" parameterType="pd.member.model.MemberDTO">
+      insert into pd_member values(#{mem_id},#{mem_pwd},#{mem_name},#{mem_birth},#{mem_sex},
+                           #{mem_tel},#{mem_email},#{mem_addr1},#{mem_addr2},
+                           'default.jpg',sysdate,0,1,#{mem_nation})
+   </insert>
+   
+   <insert id="exMemInsert" parameterType="pd.member.model.MemberDTO">
+      insert into pd_member values(#{mem_id},'none',#{mem_name},'20000101','n',
+                           'none','none','none','none',
+                           'default.jpg',sysdate,0,2,'none')
+   </insert>
+   
+   <select id="idCheck" parameterType="String" resultType="pd.member.model.MemberDTO">
+      select * from pd_member where mem_id=#{id}
+   </select>
+   
+   <select id="memLogin" parameterType="String" resultType="pd.member.model.MemberDTO">
+      select * from pd_member where mem_id=#{id}
+   </select>
+   
+   
+   <select id="memSearch" parameterType="String"  resultType="pd.member.model.MemberDTO">
+      select * from pd_member where mem_id=#{id}
+   </select>
+   
+   <update id="memUpdate" parameterType="pd.member.model.MemberDTO">
+      update pd_member set mem_pwd=#{mem_pwd},mem_name=#{mem_name},mem_sex=#{mem_sex},
+                           mem_email=#{mem_email},mem_addr1=#{mem_addr1},mem_addr2=#{mem_addr2} where mem_id=#{mem_id}
+   </update>
+   
+   <update id="memDelete" parameterType="String">
+      update pd_member set mem_grade=5 where mem_id=#{id}
+   </update>
+   
+   <select id="pwdCert" parameterType="String" resultType="pd.member.model.MemberDTO">
+      select mem_pwd from pd_member where mem_id=#{id}
+   </select>
+   
+   <select id="idFind" parameterType="String" resultType="pd.member.model.MemberDTO">
+      select mem_id, mem_name from pd_member where mem_tel=#{tel}
+   </select>
+   
+   
+   <select id="pwdFind" parameterType="String" resultType="pd.member.model.MemberDTO">
+      select mem_tel, mem_pwd from pd_member where mem_id=#{id}
+   </select>
+   
+   <update id="memInit" parameterType="pd.member.model.MemberDTO">
+      update pd_member set mem_tel=#{mem_tel}, mem_birth=#{mem_birth}, mem_email=#{mem_email}, mem_sex=#{mem_sex},
+                     mem_nation=#{mem_nation}, mem_addr1=#{mem_addr1}, mem_addr2=#{mem_addr2} where mem_id=#{mem_id}
+   </update>
+   
+   <update id="memImage" parameterType="pd.member.model.MemberDTO">
+      update pd_member set mem_img=#{mem_img} where mem_id=#{mem_id}
+   </update>
+   
+   <update id="loginState" parameterType="String">
+      update pd_member set mem_status=1 where mem_id=#{id}
+   </update>
+   
+   <update id="logoutState" parameterType="String">
+      update pd_member set mem_status=0 where mem_id=#{id}
+   </update>
+   
+   <update id="lastLogUpdate" parameterType="String">
+      update pd_member set mem_lastLog=sysdate where mem_id=#{id}
+   </update>
+   
+   <update id="memAwake" parameterType="String">
+      update pd_member set mem_grade=1 where mem_id=#{id}
+   </update>
+   
+   <update id="memSleep" parameterType="String">
+      update pd_member set mem_grade=3 where mem_id=#{id}
+   </update>
+
+   
+</mapper>

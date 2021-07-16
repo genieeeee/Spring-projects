@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<mappers>
+	<!-- Member SQL -->
+	<mapper resource="sql/memberSql.xml" />
+	<!-- Planner SQL -->
+	<mapper resource="sql/planSql.xml"/>
+	<!-- Letter SQL -->
+	<mapper resource="sql/letterSql.xml" />
+	<!-- Place SQL -->
+	<mapper resource="sql/placeSql.xml"/>
+	<!-- Diary & Jim SQL -->
+	<mapper resource="sql/diarySql.xml" />
+	<mapper resource="sql/commentSql.xml" />
+	<mapper resource="sql/jimSql.xml" />
+	<!-- BLOG SQL-->
+	<mapper resource="sql/blogSql.xml" />
+	<!-- CHAT SQL -->
+	<mapper resource="sql/chatSql.xml" />
+	<!-- Hotel SQL-->
+	<mapper resource="sql/hotelSql.xml"/>
+	<!-- Air SQL -->
+	<mapper resource="sql/airSql.xml" />
+	<!-- Admin SQL-->
+	<mapper resource="sql/pdMMMemberSql.xml"/>
+	<mapper resource="sql/pdMMCRMSql.xml"/>
+</mappers>
+</configuration>  

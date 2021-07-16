@@ -1,0 +1,35 @@
+@CHARSET "UTF-8";
+input[type=range].singleRange {
+  height: 25px;
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 120px;
+}
+	
+input[type=range].singleRange:focus {
+  outline: none;
+}
+input[type=range].singleRange::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000;
+  background: #2497E3;
+  border-radius: 1px;
+  border: 0px solid #000000;
+}
+input[type=range].singleRange::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px #000000;
+  border: 1px solid #2497E3;
+  height: 18px;
+  width: 18px;
+  border-radius: 25px;
+  background: #A1D0FF;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -5.5px;
+}
+input[type=range].singleRange:focus::-webkit-slider-runnable-track {
+  background: #2497E3;
+}

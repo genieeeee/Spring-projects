@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scheduler">
+
+	<select id="wri_num_max"  parameterType="String" resultType="int">
+		select max(wri_num) from pd_schdetail where mem_id=#{mem_id}
+	</select>
+	
+	<select id="wri_num_count" parameterType="String" resultType="int">
+		select count(wri_num) from pd_schdetail where mem_id=#{mem_id}
+	</select>
+	
+	<insert id="insertbasePlan" parameterType="pd.scheduler.model.SchedulerItem">
+		insert into pd_schdetail values (#{wri_num},#{mem_id},#{event_id},#{sch_section},#{areaname},#{fil_code},#{sch_startdate},#{sch_startday},#{sch_enddate},#{sch_endday},#{area_lat},#{area_lng})
+	</insert>
+	
+	<select id="getEvent" parameterType="Map" resultType="pd.scheduler.model.SchedulerItem">
+		select event_id, areaname, sch_startdate, sch_enddate FROM pd_schdetail where wri_num=#{wri_num} and mem_id=#{mem_id}
+	</select>
+	
+	<select id="firstStartDate"  parameterType="Map" resultType="String">
+	select min(sch_startdate) from pd_schdetail
+	where wri_num=#{wri_num} and mem_id=#{mem_id}
+	</select>
+	
+	<select id="lastEndDate" parameterType="Map" resultType="String" >
+		select max(sch_enddate) from pd_schdetail 
+		where wri_num=#{wri_num} and mem_id=#{mem_id}
+	</select>
+	
+	<select id="totaltermDate" parameterType="Map" resultType="Integer">
+		select trunc (to_date(#{sch_enddate},'YYYY-MM-DD HH24:MI:SS')- to_date(#{sch_startdate},'YYYY-MM-DD HH24:MI:SS')) result from dual
+	</select>
+	
+	<insert id="planWrite" parameterType="pd.scheduler.model.PlanDTO">
+		insert into pd_plan values(pd_plan_idx.nextval,#{mem_id},#{wri_num},#{plan_term},#{plan_title},#{plan_memo},
+		#{plan_sort},#{plan_withwhom},#{plan_readnum},sysdate,sysdate)
+	</insert>
+	
+	<select id="planListCnt" parameterType="String" resultType="Integer">
+		select count(plan_idx) from pd_plan where mem_id=#{mem_id}
+	</select>
+	
+	<select id="myPlanList" parameterType="Map" resultType="pd.scheduler.model.PlanDTO">
+		select * from 
+					(select rownum as rnum,a. * from 
+					(select * from pd_plan  where mem_id=#{mem_id} order by plan_idx desc )a)b
+					where rnum<![CDATA[>=]]>#{startnum} and rnum<![CDATA[<=]]>#{endnum}
+	</select>
+	
+	<update id="readNum"  parameterType="Map">
+  		update pd_plan set plan_readnum=#{plan_readnum}+1 where plan_idx=#{plan_idx} and wri_num=#{wri_num} and mem_id=#{mem_id}
+  	</update>
+	
+	<select id="planContent" resultType="pd.scheduler.model.PlanDTO" parameterType="Map">	
+  		select * from pd_plan where wri_num=#{wri_num} and mem_id=#{mem_id}
+  	</select>
+	
+	<delete id="schDel" parameterType="Map">
+		delete from pd_schdetail where wri_num=#{wri_num} and mem_id=#{mem_id}
+	</delete>
+	
+	<delete id="planDel" parameterType="Map">
+		delete from pd_plan where wri_num=#{wri_num} and mem_id=#{mem_id}
+	</delete>
+	
+	
+	
+	
+		
+	
+	 <update id="updateEvent" parameterType="pd.scheduler.model.SchedulerItem"> 
+ 		update pd_schdetail set areaname=#{areaname}, sch_startdate=#{sch_startdate},sch_enddate=#{sch_enddate} WHERE event_id=#{event_id} and  mem_id=#{mem_id} and wri_num=#{wri_num}
+	</update>
+
+	<delete id="deleteEvent" parameterType="pd.scheduler.model.SchedulerItem">
+		delete pd_schdetail where event_id=#{event_id} and mem_id=#{mem_id} and wri_num=#{wri_num}
+	</delete>
+	
+	
+	
+</mapper>

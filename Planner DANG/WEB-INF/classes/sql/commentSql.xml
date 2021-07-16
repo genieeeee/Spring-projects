@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pd.diary.comment">
+	<insert id="commentWrite" parameterType="pd.diary.model.CommentDTO">
+		insert into pd_dia_comment values (com_idx.nextval, #{mem_id}, #{dia_idx}, #{com_comment}, 'img/member/default.jpg', sysdate)
+	</insert>
+	
+	<select id="commentList" parameterType="Map" resultType="pd.diary.model.CommentDTO">
+		select * from
+      	(select rownum as rnum,a.* from 
+      	(select * from pd_dia_comment where dia_idx=#{dia_idx} order by com_writedate desc)a)b
+      	where <![CDATA[rnum>=#{startnum}]]> and <![CDATA[rnum<=#{endnum}]]>
+	</select>
+	
+	<delete id="commentDelete" parameterType="int">
+		delete from pd_dia_comment where com_idx=#{com_idx}
+	</delete>
+	
+	<delete id="commentDeleteAll" parameterType="int">
+		delete from pd_dia_comment where dia_idx=#{dia_idx}
+	</delete>
+	
+	<select id="imgSearch" parameterType="int" resultType="String">
+		select mem_img from pd_member where mem_id=(select mem_id from pd_dia_comment where com_idx=#{com_idx})
+	</select>
+	
+	<update id="imgUpdate" parameterType="pd.diary.model.CommentDTO">
+		update pd_dia_comment set mem_img=#{mem_img} where com_idx=#{com_idx}
+	</update>
+	
+	<select id="commentTotalCnt" resultType="int" parameterType="int">
+		select count(*) from pd_dia_comment where dia_idx=#{dia_idx}
+	</select>
+</mapper>

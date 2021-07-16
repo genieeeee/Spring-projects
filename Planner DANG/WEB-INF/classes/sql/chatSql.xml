@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pd.chat">
+
+	<insert id="chat_memInsert" parameterType="pd.chat.model.ChatDTO">
+		insert into pd_chat values(chat_idx.nextval,#{mem_id},#{chat_selectedid})
+	</insert>
+
+	<insert id="chat_userInsert" parameterType="pd.chat.model.ChatDTO">
+		insert into pd_chat values(chat_idx.nextval,#{chat_selectedid},#{mem_id})
+	</insert>
+	
+	<select id="chatList" parameterType="String" resultType="pd.chat.model.ChatDTO">
+		select chat_selectedid from pd_chat where mem_id=#{mem_id}
+	</select>
+	
+	<select id="mem_idx" parameterType="pd.chat.model.ChatDTO" resultType="pd.chat.model.ChatDTO">
+		select chat_idx from pd_chat where mem_id=#{mem_id} and chat_selectedid=#{chat_selectedid}
+	</select>
+
+	<select id="user_idx" parameterType="pd.chat.model.ChatDTO" resultType="pd.chat.model.ChatDTO">
+		select chat_idx from pd_chat where chat_selectedid=#{mem_id} and mem_id=#{chat_selectedid}
+	</select>
+</mapper>  
+

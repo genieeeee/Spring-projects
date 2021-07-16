@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pd.jim">
+
+	<select id="jimList" parameterType="pd.jim.model.JimDTO" resultType="String">
+		select jim_selectedid from pd_jimblog where mem_id=#{mem_id}
+	</select>
+	<select id="serchPlace" parameterType="pd.jim.model.JimPlaceDTO" resultType="int">
+		select jim_pidx from pd_jimplace where mem_id=#{mem_id} and jim_latitude=#{jim_latitude} and jim_longitude=#{jim_longitude}
+	</select>
+	<select id="searchIdx" resultType="pd.jim.model.JimPlaceDTO">
+		select * from pd_jimplace where mem_id=#{mem_id} and jim_latitude=#{jim_latitude} and jim_longitude=#{jim_longitude}
+	</select>
+	<select id="jimbList" resultType="pd.blog.model.BlogDTO" parameterType="Map">
+		select * from
+		(select rownum as rnum,a.* from
+		(select * from pd_blog where mem_id in (select jim_selectedid from pd_jimblog where mem_id=#{mem_id}))a)b
+		where <![CDATA[rnum>=#{startnum}]]> and <![CDATA[rnum<=#{endnum}]]>
+	</select>
+	<select id="jimHList" resultType="pd.jim.model.JimPlaceDTO">
+		select * from pd_jimplace where mem_id=#{mem_id} and jim_code=1
+	</select>
+	<select id="jimPList" resultType="pd.jim.model.JimPlaceDTO">
+		select * from pd_jimplace where mem_id=#{mem_id} and jim_code=2
+	</select>
+	<select id="jimRList" resultType="pd.jim.model.JimPlaceDTO">
+		select * from pd_jimplace where mem_id=#{mem_id} and jim_code=3
+	</select>
+	<select id="jimPHList" resultType="pd.jim.model.JimPlaceDTO">
+		select * from pd_jimhotel where jim_pidx=#{idx}
+	</select>
+	<select id="jimPPList" resultType="pd.jim.model.JimPlaceDTO">
+		select * from pd_jimpoint where jim_pidx=#{idx}
+	</select>
+	<select id="jimPRList" resultType="pd.jim.model.JimPlaceDTO">
+		select * from pd_jimres where jim_pidx=#{idx}
+	</select>
+	<delete id="deljim" parameterType="int">
+		delete from pd_jimplace where jim_pidx=#{idx} 
+	</delete>
+	<delete id="deljimPlan" parameterType="int">
+		delete from pd_jimplan where plan_idx=#{idx} 
+	</delete>
+	
+	
+	<insert id="jim_memInsert" parameterType="pd.jim.model.JimDTO">
+		insert into pd_jimblog values(#{mem_id},#{jim_selectedid})
+	</insert>
+	<insert id="addPlace" parameterType="pd.jim.model.JimPlaceDTO">
+		insert into pd_jimplace values(jim_pidx.nextval, #{mem_id}, #{jim_latitude}, #{jim_longitude}, #{jim_img}, #{jim_code}, #{jim_placename}, #{jim_addr})
+	</insert>
+	<insert id="addHotel" parameterType="pd.jim.model.JimPlaceDTO">
+		insert into pd_jimhotel values(#{jim_pidx}, #{jim_price}, #{jim_score})
+	</insert>
+	<insert id="addPoint" parameterType="pd.jim.model.JimPlaceDTO">
+		insert into pd_jimpoint values(#{jim_pidx}, #{jim_score})
+	</insert>
+	<insert id="addRes" parameterType="pd.jim.model.JimPlaceDTO">
+		insert into pd_jimres values(#{jim_pidx}, #{jim_call}, #{jim_score}, #{jim_price})
+	</insert>
+	
+	      <!-- 자기를 팔로우한 수 -->
+   <select id="follower" parameterType="String" resultType="int">
+      select count(*) from pd_jimblog where jim_selectedid=#{mem_id}
+   </select>
+   <update id="upzimnum" parameterType="String">
+      update pd_blog set blo_zimnum=blo_zimnum+1 where mem_id=#{mem_id}
+   </update>
+   
+   <!-- 내가 팔로우한 수 -->
+   <select id="following" parameterType="String" resultType="int">
+      select count(*) from pd_jimblog where mem_id=#{mem_id}
+   </select>
+   
+   <!-- 팔로우 취소 -->
+   <delete id="jim_memDel" parameterType="pd.jim.model.JimDTO">
+      delete from pd_jimblog where mem_id=#{mem_id} and jim_selectedid=#{jim_selectedid}
+   </delete>
+   <update id="downzimnum" parameterType="String">
+      update pd_blog set blo_zimnum=blo_zimnum-1 where mem_id=#{mem_id}
+   </update>
+   
+   <!-- 팔로우한 사람인지 알아보기 -->
+   <select id="followInfo" parameterType="pd.jim.model.JimDTO" resultType="int">
+      select count(*) from pd_jimblog where mem_id=#{mem_id} and jim_selectedid=#{jim_selectedid}
+   </select>
+      <!-- 팔로우 페이지 -->
+   <select id="followView" parameterType="String" resultType="pd.blog.model.BlogDTO">
+      select * from pd_blog where mem_id in (select mem_id from pd_jimblog where jim_selectedid=#{mem_id})
+   </select>
+   
+   <!-- 팔로잉 페이지 -->
+   <select id="followingView" parameterType="String" resultType="pd.blog.model.BlogDTO">
+      select * from pd_blog where mem_id in (select jim_selectedid from pd_jimblog where mem_id=#{mem_id})
+   </select>
+   
+   
+	<select id="jimPlanList" parameterType="String" resultType="pd.plan.model.PlanDTO">
+		select * from pd_jimplan where mem_id=#{mem_id}
+	</select>
+	
+	<select id="jimPlanInfo" parameterType="String" resultType="pd.plan.model.PlanDTO">
+		select * from pd_plan where plan_idx in (select plan_idx from pd_jimplan where mem_id=#{mem_id})
+	</select>
+</mapper>  

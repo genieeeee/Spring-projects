@@ -1,0 +1,74 @@
+@CHARSET "UTF-8";
+@supports (--css: variables) {
+	input[type=range].doubleRange {
+	 height: 25px;
+	 width: 120px;
+	 -webkit-appearance: none;
+	 margin: 0;
+	 display: inline-block;
+	 vertical-align: top;
+	}	
+	
+	/**Show First Range*/
+	input[type="range"].doubleRange.original {
+		position: absolute;
+	}
+	input[type="range"].doubleRange.original::-webkit-slider-thumb {
+		position: relative;
+		z-index: 2;
+	}
+	input[type="range"].doubleRange.original::-moz-range-thumb {
+		transform: scale(1); /* FF doesn't apply position it seems */
+		z-index: 1;
+	}
+	
+	
+	/**CSS : range*/
+	input[type=range].doubleRange:focus {
+  	outline: none;
+	}
+	input[type=range].doubleRange::-webkit-slider-runnable-track {/*box Css*/
+	  width: 120px;
+	  height: 8px;
+	  cursor: pointer;
+	  animate: 0.2s;
+	  box-shadow: 0px 0px 0px #000000;
+	  background: #2497E3;
+	  border-radius: 1px;
+	  border: 0px solid #000000;
+	}
+	input[type=range].doubleRange::-webkit-slider-thumb { /* button Css*/
+	  box-shadow: 0px 0px 0px #000000;
+	  border: 1px solid #2497E3;
+	  height: 18px;
+	  width: 18px;
+	  border-radius: 25px;
+	  background: #A1D0FF;
+	  cursor: pointer;
+	  -webkit-appearance: none;
+	  margin-top: -5.5px;
+	}
+	input[type=range].doubleRange:focus::-webkit-slider-runnable-track {
+ 	 background: #2497E3;
+	}
+	
+	input[type="range"].doubleRange::-moz-range-track {
+		border-color: transparent; /* needed to switch FF to "styleable" control */
+	}
+	
+	/**Hide Second Range*/
+	input[type="range"].doubleRange.ghost {
+		position: relative;
+		background: var(--track-background);
+		--track-background: linear-gradient(to right,
+				transparent var(--low), var(--range-color) 0,
+				var(--range-color) var(--high), transparent 0
+			) no-repeat 0 45% / 100% 40%;
+	}
+	input[type="range"].doubleRange.ghost::-webkit-slider-runnable-track {
+		background: var(--track-background);
+	}	
+	input[type="range"].doubleRange.ghost::-moz-range-track {
+		background: var(--track-background);
+	}
+}

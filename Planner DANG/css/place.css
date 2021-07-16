@@ -1,0 +1,148 @@
+input:focus {
+  outline: none;
+}
+button:FOCUS{
+	outline: none;
+}
+.btn btn-primary{
+	border: none;
+}
+body {
+	background-image:
+		url('http://starkaerospace.com/wp-content/uploads/2014/06/background-world-map-1.gif');
+	background-attachment: fixed;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+}
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+/* Optional: Makes the sample page fill the window. */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	
+}
+
+table {
+	font-size: 12px;
+}
+#mapform{
+	margin-top: 8%;
+	margin: auto;
+}
+
+
+#map {
+	height: 570px;
+	width: 2000px;
+	border:  12px double #7E7676;
+	box-shadow: 7px 5px #BAB4B4, 7px 5px #9A9A9A;
+}
+
+/* 
+#listing {
+	position: absolute;
+	width: 200px;
+	height: 458px;
+	overflow: auto;
+	top: 12px;
+	cursor: pointer;
+	overflow-x: hidden;
+} */
+/* 
+#findhotels {
+	position: absolute;
+	text-align: right;
+	width: 100px;
+	font-size: 14px;
+	padding: 4px;
+	z-index: 5;
+	background-color: #fff;
+}
+
+#locationField {
+	position: absolute;
+	width: 190px;
+	height: 25px;
+	left: 108px;
+	top: 0px;
+	z-index: 5;
+	background-color: #fff;
+}
+
+#controls {
+	position: absolute;
+	left: 300px;
+	width: 140px;
+	top: 0px;
+	z-index: 5;
+	background-color: #fff;
+} */
+#country {
+	width: 100%;
+}
+
+.placeIcon {
+	width: 20px;
+	height: 34px;
+	margin: 4px;
+}
+
+.hotelIcon {
+	width: 24px;
+	height: 24px;
+}
+
+#resultsTable {
+	border-collapse: collapse;
+	width: 240px;
+}
+
+#rating {
+	font-size: 13px;
+	font-family: Arial Unicode MS;
+}
+
+.iw_table_row {
+	height: 18px;
+}
+
+.iw_attribute_name {
+	font-weight: bold;
+	text-align: right;
+}
+
+.iw_table_icon {
+	text-align: right;
+}
+
+.divTable {
+	display: table;
+	width: 70%;
+	margin: auto;
+}
+
+.divTableRow {
+	display: table-row;
+}
+
+.divTableCell, .divTableHead {
+	margin: auto;
+	text-align: center;
+	border: 1px solid #999999;
+	display: table-cell;
+	padding: 3px 10px;
+	
+}table th{
+	 background: url(http://nanati.me/img/monoptn.gif);
+	   color: #D3BBBB;
+	   font:bold;
+	   width: 10%;
+  }table{
+  box-shadow: 3px 2px #958A8A;
+  }table td{
+ 	color: #C2C1EC;
+ 
+  }

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="pd.air">
+  <!-- IATA Airline 2-code SQL -->
+  
+  <!-- memberInfo -->
+  <select id="getMemInfo" parameterType="String" resultType="pd.member.model.MemberDTO">
+  	select * from pd_member where mem_id=#{mem_id}
+  </select>
+  
+  <!-- Booking Airline SQL -->
+  <!-- Step1 : setting PD_airBookNum -->
+  <select id="bookAirIdx" resultType="int">
+  	select max(air_idx) from pd_airBookNum
+  </select>
+  <select id="memMaxAirIdx" resultType="int">
+ 	select max(air_idx) from pd_airBookNum where mem_id=#{mem_id} 
+  </select>
+  <select id="bookNumAirIdx" parameterType="String" resultType="int">
+  	select air_idx from pd_airBookNum where air_bookNum =#{air_bookNum}
+  </select>
+  <insert id="bookAirNum" parameterType="pd.air.model.AirBookNumDTO">
+  	insert into pd_airbookNum values(air_idx.nextval, #{mem_id}, #{air_bookNum}, 
+  						#{air_goBookNum}, #{air_backBookNum}, #{air_payNum}, 0)
+  </insert>
+
+  <!-- GET BOOK NUMBERS -->
+  <select id="airBookNum" parameterType="int" resultType="String">
+  	select air_booknum from pd_airbookNum where air_idx=#{air_idx}
+  </select>
+  <select id="airGoBookNum" parameterType="int" resultType="String">
+  	select air_goBookNum from pd_airBookNum where air_idx=#{air_idx}
+  </select>
+  <select id="airBackBookNum" parameterType="int" resultType="String">
+  	select air_backBookNum from pd_airBookNum where air_idx=#{air_idx}
+  </select>
+
+  <!-- Step2 : air_goBookNum & air_backBookNum  -->
+  <insert id="bookAirInfo" parameterType="pd.air.model.AirBookInfoDTO">
+  	insert into pd_airbookinfo values(#{air_bookNum}, #{air_tripType}, #{air_adult},
+  				#{air_kid}, #{air_totalPrice}, #{air_basePrice}, #{air_taxPrice},
+  				#{air_priceInfo}, #{air_latestTicket}, sysdate, #{mem_id}, #{air_mName},
+  				#{air_mBirth}, #{air_mTel}, #{air_mEmail}, #{air_mNation})
+  </insert>
+  <insert id="passengerInfo">
+  	insert into pd_airPsgInfo values(air_psgIdx.nextval, #{air_bookNum}, #{air_psgName},
+  						#{air_psgSex}, #{air_psgBirth}, #{air_psgPassportNum}, #{air_bookRef})
+  </insert>
+  <insert id="goInfo">
+  	insert into pd_airGoInfo values(#{air_goBookNum}, #{air_goOrigin}, #{air_goDestination},
+  					#{air_goStartDate}, #{air_goEndDate}, #{air_goTotalDuration},
+  					#{air_goStopNum}, #{air_goSeatType})
+  </insert>
+  <insert id="goDetail">
+  	insert into pd_airGoDetail values(air_goIdx.nextval, #{air_goBookNum}, #{air_origin}, #{air_destination},
+  						#{air_startDate}, #{air_endDate}, #{air_duration}, #{air_stopDuration},
+  						#{air_stopRef}, #{air_airline}, #{air_airName}, #{air_airNum}, #{air_bookGrade},
+  						#{air_mileage}, #{air_aircraft})
+  </insert>
+  <insert id="backInfo">
+  	insert into pd_airBackInfo values(#{air_backBookNum}, #{air_backOrigin}, #{air_backDestination},
+  									#{air_backStartDate}, #{air_backEndDate}, #{air_backTotalDuration},
+  									#{air_backStopNum}, #{air_backSeatType})
+  </insert>
+  <insert id="backDetail">
+  	insert into pd_airBackDetail values(air_backIdx.nextval, #{air_backBookNum}, #{air_origin}, #{air_destination},
+  						#{air_startDate}, #{air_endDate}, #{air_duration}, #{air_stopDuration},
+  						#{air_stopRef}, #{air_airline}, #{air_airName}, #{air_airNum}, #{air_bookGrade},
+  						#{air_mileage}, #{air_aircraft})
+  </insert>
+  
+  <!-- Step3 : Confirm Air Fare Booking Form -->
+  <select id="airBookNums" parameterType="hashMap" resultType="pd.air.model.AirBookNumDTO">
+  	select * from pd_airBookNum where mem_id=#{mem_id} and air_idx=#{air_idx}
+  </select>
+  
+ 
+ <!-- AIR FARE INFOS :: AIRBOOKNUM 으로 조회 -->
+  <select id="getAirBookInfo" parameterType="String" resultType="pd.air.model.AirBookInfoDTO">
+  	select* from pd_airBookInfo
+  	where air_booknum=#{air_bookNum}
+  </select>
+  <select id="getAirPsgInfo" parameterType="String" resultType="pd.air.model.AirPassengerInfoDTO">
+  	select * from pd_airPsgInfo
+  	where air_bookNum = #{air_bookNum}
+  </select>
+  <select id="getAirGoInfo" parameterType="String" resultType="pd.air.model.AirGoInfoDTO">
+  	select * from pd_airGoInfo where air_goBookNum 
+  	in (select air_goBookNum from pd_airBookNum where air_bookNum = #{air_bookNum})
+  </select>
+  <select id="getAirGoDetail" parameterType="String" resultType="pd.air.model.AirGoDetailInfoDTO">
+  	select * from pd_airGoDetail where air_goBookNum 
+  	in (select air_goBookNum from pd_airBookNum where air_bookNum = #{air_bookNum})
+  </select>
+  <select id="getAirBackInfo" parameterType="String" resultType="pd.air.model.AirBackInfoDTO">
+  	select * from pd_airBackInfo where air_backBookNum 
+  	in (select air_backBookNum from pd_airBookNum where air_bookNum = #{air_bookNum})
+  </select>
+  <select id="getAirBackDetail" parameterType="String" resultType="pd.air.model.AirBackDetailInfoDTO">
+  	select * from pd_airBackDetail where air_backBookNum 
+  	in (select air_backBookNum from pd_airBookNum where air_bookNum = #{air_bookNum})
+  </select>
+  <select id="getAirState" parameterType="String" resultType="String">
+  	select air_payState from pd_airBookNum where air_bookNum =#{air_bookNum}
+  </select>
+  
+  <!-- Mypage AIR BOOK :: 총 갯수 -->
+  <select id="totBookCnt" parameterType="String" resultType="int">
+   select count(air_bookNum) from pd_airBookNum where mem_id=#{mem_id}
+  </select>
+  <select id="onewayCnt" parameterType="String" resultType="int">
+  	select count(*) from pd_airBookNum where mem_id=#{mem_id} 
+  	and  air_bookNum in (select air_bookNum from pd_airBookInfo where air_tripType='oneway')
+  </select>
+  <select id="roundCnt" parameterType="String" resultType="int">
+  	select count(*) from pd_airBookNum where mem_id=#{mem_id} 
+  	and  air_bookNum in (select air_bookNum from pd_airBookInfo where air_tripType='round')
+  </select>
+
+<!-- MYPAGE AIR BOOK LISTs --> 
+  <!-- GET AIR PAY BOOKING NUM -->
+  <select id="payStateBefore" parameterType="hashMap" resultType="String">
+  	select air_bookNum from 
+	(select rownum as r, air_bookNum from 
+	pd_airBookNum 
+	where air_bookNum 
+	in (select air_bookNum from pd_airBookNum where air_payState =0 and mem_id=#{mem_id}))a
+	where r>=((#{cp}-1)*#{showList}+1) and r<![CDATA[<=]]>(#{cp}*#{showList})
+  </select>
+  <select id="payStatePay" parameterType="hashMap" resultType="String">
+  	select air_bookNum from 
+	(select rownum as r, air_bookNum from 
+	pd_airBookNum 
+	where air_bookNum 
+	in (select air_bookNum from pd_airBookNum where air_payState =1 and mem_id=#{mem_id}))a
+	where r>=((#{cp}-1)*#{showList}+1) and r<![CDATA[<=]]>(#{cp}*#{showList})
+  </select>
+  <select id="payStateCancel" parameterType="hashMap" resultType="String">
+  	select air_bookNum from 
+	(select rownum as r, air_bookNum from 
+	pd_airBookNum 
+	where air_bookNum 
+	in (select air_bookNum from pd_airBookNum where air_payState =2 and mem_id=#{mem_id}))a
+	where r>=((#{cp}-1)*#{showList}+1) and r<![CDATA[<=]]>(#{cp}*#{showList})
+  </select>
+  <!-- USED TICKETS INFO -->
+  <select id="airEndDate" parameterType="hashMap" resultType="String">
+  	select air_bookNum from 
+	(select rownum as r, air_bookNum from 
+	pd_airBookNum 
+	where air_bookNum 
+	in (select air_bookNum from pd_airBookNum where air_payState =3 and mem_id=#{mem_id}))a
+	where r>=((#{cp}-1)*#{showList}+1) and r<![CDATA[<=]]>(#{cp}*#{showList})
+  </select>
+  <!-- Cancel & Pay Ticekts -->
+  <select id="payCancelAllInfo" parameterType="hashMap" resultType="String">
+  	select air_bookNum from 
+	(select rownum as r, air_bookNum from 
+	pd_airBookNum 
+	where air_bookNum 
+	in (select air_bookNum from pd_airBookNum where air_payState in (1,2,3) and mem_id=#{mem_id}))a
+	where r>=((#{cp}-1)*#{showList}+1) and r<![CDATA[<=]]>(#{cp}*#{showList})
+  </select>
+  <select id="payStateBeforeCnt" parameterType="String" resultType="int">
+  	select count(*) from pd_airBookNum where air_payState =0 and mem_id=#{mem_id}
+  </select>
+  <select id="payStatePayCnt" parameterType="String" resultType="int">
+  	select count(*) from pd_airBookNum where air_payState =1 and mem_id=#{mem_id}
+  </select>
+  <select id="payStateCancelCnt" parameterType="String" resultType="int">
+  	select count(*) from pd_airBookNum where air_payState =2 and mem_id=#{mem_id}
+  </select>
+  <select id="payStateEndDateCnt" parameterType="String" resultType="int">
+  	select count(*) from pd_airBookNum where air_payState =3 and mem_id=#{mem_id}
+  </select>
+  
+  <!-- 결제 내역 전체 -->
+  <select id="getAirPayAllInfo" parameterType="String" resultType="pd.air.model.AirPayStateDTO">
+  	select * from 
+    (select air_goOrigin, air_goDestination, air_goStartDate, air_goEndDate from pd_airGoInfo where air_goBooknum in (select air_goBooknum from pd_airBookNum where air_bookNum =#{air_bookNum}))a,
+    (select air_backOrigin, air_backDestination, air_backStartDate, air_backEndDate from pd_airBackInfo where air_backBookNum in (select air_backBookNum from pd_airBookNum where air_bookNum =#{air_bookNum}))b,
+    (select air_payState from pd_airBookNum where air_bookNum = #{air_bookNum})c,
+    (select air_tripType, air_BookNum, air_totalPrice, air_adult, air_kid from pd_airBookInfo where air_bookNum = #{air_bookNum})d,
+    (select air_payDate from pd_airPay where air_payNum in (select air_payNum from pd_airBookNum where air_bookNum =#{air_bookNum}))e
+  </select>
+ 
+  <!-- 사용만료 -->
+  <select id="getStartDate" resultType="String">
+  	select air_goStartDate from pd_airGoInfo
+  </select>
+  <select id="getAirGoBookNum" parameterType="String" resultType="String">
+  	select air_goBookNum from pd_airGoInfo where air_goStartDate =#{air_goStartDate}
+  </select>
+  <update id="updateEndTicket" parameterType="String">
+  	update pd_airBookNum set air_payState = 3 where air_goBookNum =#{air_goBookNum} and air_payState =1
+  </update>
+  
+  
+<!-- CANCEL -->
+  <!-- USER :: do cancel by themselves -->
+  <delete id="cancelBook" parameterType="String">
+  	delete from pd_airBookNum where air_bookNum =#{air_bookNum}
+  </delete>
+  <!-- AUTO CANCEL :: It  depends on server time  -->
+  <select id="getBookTime" resultType="Date">
+  	select air_BookDate from pd_airBookInfo
+  </select>
+  
+  <!-- Air Book Pay -->
+  <update id="updateAirPayNum" parameterType="hashMap">
+  	update pd_airBookNum set air_payNum = #{air_payNum} where air_bookNum = #{air_bookNum}
+  </update>
+  <select id="getAirPayNum" parameterType="String" resultType="String">
+  	select air_payNum from pd_airBookNum where air_bookNum =#{air_bookNum}
+  </select>
+  <insert id="payAirTicket" parameterType="pd.air.model.AirPayDTO">
+  	insert into pd_airPay values (#{air_payNum}, #{mem_id}, sysdate, #{air_cardType}, #{air_cardNum}, #{air_cardDate}, #{air_cardCCv})
+  </insert>
+  <update id="payState" parameterType="String">
+  	update pd_airBookNum set air_payState =1 where air_payNum=#{air_payNum}
+  </update>
+<!--   <select id="getAirPayInfo" parameterType="String" resultType="pd.air.model.AirPayDTO">
+  	select * from pd_airPay where air_payNum in ( select air_payNum from pd_airBookNum where air_bookNum =#{air_bookNum})
+  </select>
+   -->
+  
+  
+  <!-- AUTOCOMPLETE AIRFARE SEARCH ::  pd_citycode-->
+  <select id="getCityName" parameterType="String" resultType="pd.air.model.AirCityDTO">
+  	select cityName, citycode from pd_citycode where cityname like #{keyword}
+  </select>
+  <select id="getAirportName" parameterType="String" resultType="pd.air.model.AirCityDTO">
+  	select airportName, citycode from pd_citycode where nation like #{keyword}
+  </select>
+  <select id="getNation" parameterType="String" resultType="pd.air.model.AirCityDTO">
+  	select nation,airportName, citycode from pd_citycode where airportName like #{keyword}
+  </select>
+  <select id="getCityCode" parameterType="String" resultType="pd.air.model.AirCityDTO">
+  	select citycode, cityName from citycode where pd_citycode like #{keyword}
+  </select>
+  </mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pd.letter">
+   <!-- 관리자 -->
+   <select id="totalCntA" resultType="Integer">
+      select count(*) from pd_letter
+   </select>
+   
+   <select id="adminLetterList" resultType="pd.letter.model.LetterDTO" parameterType="Map">
+      select * from
+      (select rownum as rnum,a.* from
+      (select * from pd_letter order by let_idx desc)a)b
+      where <![CDATA[rnum>=#{startnum}]]> and <![CDATA[rnum<=#{endnum}]]>
+   </select>
+
+   <insert id="adminLetterWrite" parameterType="pd.letter.model.LetterDTO">
+      insert into pd_letter values(let_idx.nextval, #{mem_id}, #{let_subject}, #{let_content}, sysdate, 1)
+   </insert>
+
+   <select id="allIdInfo" resultType="pd.member.model.MemberDTO">
+      select mem_id from pd_member
+   </select>
+
+   <insert id="adminLetterWriteAll" parameterType="Map">
+      insert into pd_letter values(let_idx.nextval, #{mem_id}, #{let_subject}, #{let_content}, sysdate, 1)
+   </insert>
+
+   <select id="adminLetterContent" resultType="pd.letter.model.LetterDTO" parameterType="int">
+      select * from pd_letter where let_idx=#{let_idx}
+   </select>
+
+   <select id="searchTotalCnt" resultType="Integer" parameterType="String">
+      select count(*) from pd_letter where mem_id=#{mem_id}
+   </select>
+
+   <select id="userSearch" resultType="pd.letter.model.LetterDTO" parameterType="Map">
+      select * from
+      (select rownum as rnum,a.* from
+      (select * from pd_letter where mem_id=#{mem_id} order by let_idx desc)a)b
+      where <![CDATA[rnum>=#{startnum}]]> and <![CDATA[rnum<=#{endnum}]]>
+   </select>
+
+
+
+   <!-- 사용자 -->
+   <select id="userLetterList" resultType="pd.letter.model.LetterDTO" parameterType="Map">
+      select * from
+         (select rownum as rnum,a.* from 
+         (select * from pd_letter where mem_id=#{mem_id} and let_stat=1 order by let_idx desc)a)b
+         where <![CDATA[rnum>=#{startnum}]]> and <![CDATA[rnum<=#{endnum}]]>
+   </select>
+   
+   <update id="userLetterDel" parameterType="int">
+      update pd_letter set let_stat=0 where let_idx=#{let_idx}
+   </update>
+   
+   <select id="userLetterContent" resultType="pd.letter.model.LetterDTO" parameterType="int">
+      select * from pd_letter where let_idx=#{let_idx} and let_stat=1
+   </select>
+   
+   <select id="userTotalCnt" resultType="Integer" parameterType="String">
+      select count(*) from pd_letter where let_stat=1 and mem_id=#{mem_id}
+   </select>
+</mapper>
+
+

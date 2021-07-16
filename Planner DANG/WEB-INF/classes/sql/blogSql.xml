@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pd.blog">
+	<insert id="blogAdd" parameterType="String">
+		insert into pd_blog values(blo_idx.nextval, #{mem_id}, 'img/mypage/no_photo.PNG', 0)
+	</insert>
+
+	<select id="blogList" resultType="pd.blog.model.BlogDTO" parameterType="Map">
+		select * from
+      	(select rownum as rnum,a.* from 
+      	(select * from pd_blog order by blo_zimnum desc)a)b
+      	where <![CDATA[rnum>=#{startnum}]]> and <![CDATA[rnum<=#{endnum}]]>
+	</select>
+	
+	<select id="blogListMain" resultType="pd.blog.model.BlogDTO">
+		select * from pd_blog order by blo_zimnum desc
+	</select>
+	
+	<update id="mypageImgUpdate" parameterType="hashMap">
+		update pd_blog set blo_mainimg=#{blo_mainimg} where mem_id=#{mem_id}
+	</update>
+	
+	<select id="getTotal" resultType="int">
+		select count(*)	from pd_blog
+	</select>
+	
+	<select id="mypageImg" parameterType="String" resultType="String">
+		select blo_mainimg from pd_blog where mem_id=#{mem_id}
+	</select>
+</mapper>

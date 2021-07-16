@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- config -->
+	<context:component-scan base-package="pd" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	<!-- AOP부분
+	<bean id="timeCheckerAOP" class="yong.aop.TimeCheckerAOP"/>
+	
+	<aop:config>
+		<aop:aspect id="timeChecker" ref="timeCheckerAOP">
+			<aop:pointcut expression="execution(public * yong.hello..*.say*(..))" id="publicSay"/>
+			<aop:around pointcut-ref="publicSay" method="yongTime"/>
+		</aop:aspect>
+	</aop:config>
+	<bean id="messageBean" class="yong.hello.MessageBeanImple">
+		<constructor-arg>
+			<value>Spring</value>
+		</constructor-arg>
+		<property name="greeting">
+			<value>Hello</value>
+		</property>
+	</bean>
+	 -->
+	 
+	<!-- MultiPart -->
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600"/>
+	</bean>
+	
+	<!-- MyBatis + dbcp -->
+
+	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@yongstudy.iptime.org:9000:orcl"/>
+		<property name="username" value="PROJECT02_03"/>
+		<property name="password" value="project02_03"/>
+	</bean> 
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:/mybatis-config.xml"/>
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>
+	</bean>
+	
+	<!-- view -->
+	
+	<!--  다운로드 부분
+	<bean id="yongDown" class="yong.view.DownloadView"/>
+	<bean id="yongJson" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>
+	-->
+	
+	<!-- service -->
+
+	<!-- Member -->
+	<bean class="pd.member.model.MemberDAOImple" id="memberDao">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<!-- planner -->
+	<bean id="calendarDAO" class="pd.plan.model.CalendarDAOImple">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<bean id="planDAO" class="pd.plan.model.PlanDAOImple">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<!-- hotel -->
+	<bean id="HotelDao" class="pd.hotel.model.HotelDAOImple">
+		<constructor-arg ref="sqlSessionTemplate"/>
+	</bean>
+	<!-- AdminPage -->
+	<bean class="pd.pdmm.model.PdMMDAOImple" id="pdDAO">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<bean class="pd.pdmm.model.PdMMCrmDAOImple" id="pcDAO">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<bean class="pd.pdmm.model.PdMMMplDAOImple" id="pmDAO">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<bean class="pd.pdmm.model.PdMMEventDAOImple" id="peDAO">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<!-- Letter -->
+	<bean class="pd.letter.model.LetterDAOImple" id="letterDAO">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<!-- Attractions -->
+	<bean class="pd.attractions.model.PlaceLikeDAOImple" id="placeLikeDAO">
+    	<constructor-arg ref="sqlSessionTemplate"/>
+    </bean>
+	<!-- Mypage -->
+	<bean class="pd.diary.model.DiaryDAOImple" id="diaryDAO">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<bean class="pd.diary.model.CommentDAOImple" id="comDao">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<bean class="pd.jim.model.JimDAOImple" id="JimDAO">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<!-- blog -->
+	<bean class="pd.blog.model.BlogDAOImple" id="blogDao">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<!-- Chat -->
+	<bean class="pd.chat.model.ChatDAOImple" id="chatDAO">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<!-- AirFare -->
+	<bean class="pd.air.model.airBookDAOImple" id="airBookDAO">
+		<constructor-arg ref="sqlSessionTemplate" />
+	</bean>
+	<!-- view -->
+	<!-- this is for automatic enroll Json -->
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
+		<property name="order" value="1"/>
+	</bean>
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0"/>
+	</bean>
+
+
+	<bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+	 <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	<property name="messageConverters">
+	  <list>
+	    <ref bean="jacksonMessageConverter"/>
+	  </list>
+	</property>
+	</bean>
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
+</beans>
+
+

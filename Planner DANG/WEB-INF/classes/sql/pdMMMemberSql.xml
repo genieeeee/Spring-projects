@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pd.pdmm.model">
+	<select id="adminLastLogin" resultType="pd.pdmm.model.PdMMDTO">
+		select mem_id, mem_name, mem_lastLog
+		from pd_member where mem_grade = 0
+	</select>
+	<select id="memberList_name_asc" parameterType="map" resultType="pd.pdmm.model.PdMMDTO">
+		select *
+		from (select rownum as rnum, b.*
+		from (select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age, a.*
+		from (select * from pd_member order by mem_name asc)a)b)c 
+		where rnum <![CDATA[ >= ]]> #{startnum} and rnum <![CDATA[ <= ]]> #{endnum}	
+	</select>
+	<select id="memberList_name_desc" parameterType="map" resultType="pd.pdmm.model.PdMMDTO">
+		select *
+		from (select rownum as rnum, b.*
+		from (select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age, a.*
+		from (select * from pd_member order by mem_name desc)a)b)c 
+		where rnum <![CDATA[ >= ]]> #{startnum} and rnum <![CDATA[ <= ]]> #{endnum}
+	</select>
+	<select id="memberList_lastLog_asc" parameterType="map" resultType="pd.pdmm.model.PdMMDTO">
+		select *
+		from (select rownum as rnum, b.*
+		from (select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age, a.*
+		from (select * from pd_member order by mem_lastLog asc)a)b)c 
+		where rnum <![CDATA[ >= ]]> #{startnum} and rnum <![CDATA[ <= ]]> #{endnum}
+	</select>
+	<select id="memberList_lastLog_desc" parameterType="map" resultType="pd.pdmm.model.PdMMDTO">
+		select *
+		from (select rownum as rnum, b.*
+		from (select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age, a.*
+		from (select * from pd_member order by mem_lastLog desc)a)b)c 
+		where rnum <![CDATA[ >= ]]> #{startnum} and rnum <![CDATA[ <= ]]> #{endnum}
+	</select>
+	<select id="memberList_age" parameterType="map" resultType="pd.pdmm.model.PdMMDTO">
+		select *
+		from (select rownum as rnum, b.*
+		from (select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age, a.*
+		from (select * from pd_member order by mem_name asc)a)b
+		where mem_age <![CDATA[ >= ]]> #{mem_age} and mem_age <![CDATA[ < ]]> #{mem_age_end})c 
+		where rnum <![CDATA[ >= ]]> #{startnum} and rnum <![CDATA[ <= ]]> #{endnum}	
+	</select>
+	<select id="memberList_sex" parameterType="map" resultType="pd.pdmm.model.PdMMDTO">
+		select *
+		from (select rownum as rnum, b.*
+		from (select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age, a.*
+		from (select * from pd_member where mem_sex = #{mem_sex} order by mem_name asc)a)b)c 
+		where rnum <![CDATA[ >= ]]> #{startnum} and rnum <![CDATA[ <= ]]> #{endnum}
+	</select>
+	<select id="memberList_nation" parameterType="map" resultType="pd.pdmm.model.PdMMDTO">
+		select *
+		from (select rownum as rnum, b.*
+		from (select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age, a.*
+		from (select * from pd_member where mem_nation = #{mem_nation} order by mem_name asc)a)b)c 
+		where rnum <![CDATA[ >= ]]> #{startnum} and rnum <![CDATA[ <= ]]> #{endnum}
+	</select>
+	<select id="memberList_grade" parameterType="map" resultType="pd.pdmm.model.PdMMDTO">
+		select *
+		from (select rownum as rnum, b.*
+		from (select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age, a.*
+		from (select * from pd_member where mem_grade = #{mem_grade} order by mem_name asc)a)b)c 
+		where rnum <![CDATA[ >= ]]> #{startnum} and rnum <![CDATA[ <= ]]> #{endnum}
+	</select>
+	<select id="searchId" parameterType="String" resultType="pd.pdmm.model.PdMMDTO">
+		select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age, a.*
+		from (select * from pd_member where mem_id = #{mem_id})a
+	</select>
+	<select id="searchName" parameterType="String" resultType="pd.pdmm.model.PdMMDTO">
+		select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age, a.*
+		from (select * from pd_member where mem_name = #{mem_name})a
+	</select>
+	<select id="age_totalCnt" parameterType="map" resultType="int">
+		select count(mem_age) 
+		from (select trunc(months_between(sysdate, to_date(mem_birth, 'yyyymmdd')) / 12) as mem_age
+		from pd_member)a
+		where mem_age <![CDATA[ >= ]]> #{mem_age} and mem_age <![CDATA[ < ]]> #{mem_age_end}
+	</select>
+	<select id="sex_totalCnt" parameterType="String" resultType="int">
+		select count(mem_id) from pd_member where mem_sex = #{mem_sex}
+	</select>
+	<select id="nation_totalCnt" parameterType="String" resultType="int">
+		select count(mem_id) from pd_member where mem_nation = #{mem_nation}
+	</select>
+	<select id="grade_totalCnt" parameterType="int" resultType="int">
+		select count(mem_id) from pd_member where mem_grade = #{mem_grade}
+	</select>
+	<select id="totalCnt" resultType="int">
+		select count(mem_id) from pd_member
+	</select>
+	<select id="nationList" resultType="String">
+		select distinct(mem_nation) from pd_member
+	</select>
+	<update id="goNomal" parameterType="String">
+		update pd_member set mem_grade = 1 where mem_id = #{mem_id}
+	</update>
+	<update id="goSleep" parameterType="String">
+		update pd_member set mem_grade = 3 where mem_id = #{mem_id}
+	</update>
+	<update id="goBlack" parameterType="String">
+		update pd_member set mem_grade = 4 where mem_id = #{mem_id}
+	</update>
+</mapper>  

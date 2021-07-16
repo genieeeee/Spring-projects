@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pd.diary">
+	<insert id="diaryAdd" parameterType="pd.diary.model.DiaryDTO">
+		insert into pd_diary values(dia_idx.nextval, #{mem_id}, #{dia_subject}, #{dia_mainimg}, #{dia_content}, sysdate, 0)
+	</insert>
+	
+	<select id="getTotalCnt" parameterType="String" resultType="int">
+		select count(*) from pd_diary where mem_id=#{mem_id}
+	</select>
+	
+	<select id="diaryList" parameterType="Map" resultType="pd.diary.model.DiaryDTO">
+		select * from
+		(select rownum as rnum,a.* from
+		(select * from pd_diary where mem_id=#{mem_id} order by dia_writedate desc)a)b
+		where <![CDATA[rnum>=#{startnum}]]> and <![CDATA[rnum<=#{endnum}]]>
+	</select>
+	
+	<select id="diaryContent" parameterType="int" resultType="pd.diary.model.DiaryDTO">
+		select * from pd_diary where dia_idx=#{dia_idx} 
+	</select>
+	
+	<update id="diaryUpdate" parameterType="pd.diary.model.DiaryDTO">
+		update pd_diary set dia_subject=#{dia_subject}, dia_mainimg=#{dia_mainimg}, dia_content=#{dia_content} where dia_idx=#{dia_idx}
+	</update>
+	
+	<delete id="diaryDelete" parameterType="int">
+		delete from pd_diary where dia_idx=#{dia_idx}
+	</delete>
+	
+	<update id="diaryRead" parameterType="int">
+		update pd_diary set dia_readnum=dia_readnum+1 where dia_idx=#{dia_idx}
+	</update>
+	
+	
+</mapper>

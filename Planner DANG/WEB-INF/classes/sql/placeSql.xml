@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pd.attractions.model">
+	<select id="boolean_likePlus" parameterType="pd.attractions.model.PlaceLikeDTO"
+		resultType="pd.attractions.model.PlaceLikeDTO">
+		select * from PD_PLACELIKE where mem_id = #{mem_id} and place_id =#{place_id}
+	</select>
+	<insert id="likePlus" parameterType="pd.attractions.model.PlaceLikeDTO">
+		insert into PD_PLACELIKE values (#{mem_id}, #{place_id}, #{place_nation},#{place_state}, #{lat}, #{lng})
+	</insert>
+	<select id="boolean_likeMinus" parameterType="pd.attractions.model.PlaceLikeDTO"
+		resultType="pd.attractions.model.PlaceLikeDTO">
+		select * from PD_PLACELIKE where mem_id = #{mem_id} and place_id =#{place_id}
+	</select>
+	<delete id="likdMinus" parameterType="pd.attractions.model.PlaceLikeDTO">
+	delete from PD_PLACELIKE where mem_id=#{mem_id} and place_id=#{place_id} and place_nation=#{place_nation} and place_state=#{place_state} and lat=#{lat} and lng=#{lng}
+	</delete>
+	
+	<select id="likejudge" parameterType="String" resultType="pd.attractions.model.PlaceLikeDTO">
+		select * from pd_placelike where place_id=#{place_id}
+	</select>
+	
+	<select id="searchreturn" parameterType="String" resultType="pd.attractions.model.PlaceLikeDTO">
+		select * from pd_placelike where mem_id=#{mem_id}
+	</select>
+	
+</mapper>

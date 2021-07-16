@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="pd.hotel.model">
+	<insert id="yeyak" parameterType="pd.hotel.model.YeyakDTO">
+		insert into pd_yeyak values(ye_idx.nextval, #{ye_userid}, #{ye_price}, #{ye_name}, #{ye_in}, #{ye_out}, sysdate, #{ye_lat}, #{ye_lng}, #{ye_first}, #{ye_last}, #{ye_email}, #{ye_tel}, #{ye_card}, #{ye_cardnum}, #{ye_month}, #{ye_year}, #{ye_cvc}, #{ye_photo})
+	</insert>
+
+	<insert id="hotel" parameterType="pd.hotel.model.HotelDTO">
+		insert into pd_hotel values(#{ye_idx}, #{hot_name}, #{hot_rating}, #{hot_address}, #{hot_photo}, #{hot_lat}, #{hot_lng}, sysdate, #{hot_roomnum}, #{hot_roomnum1}, #{hot_roomnum2}, #{hot_roomnum3})
+	</insert>	
+	
+	<select id="roomnum" resultType="pd.hotel.model.HotelDTO" parameterType="pd.hotel.model.HotelDTO">
+		select * from pd_hotel where hot_lat = #{hot_lat} and hot_lng = #{hot_lng}
+	</select>
+	
+<!-- 	<select id="yeyakList" resultMap="yeyakList" parameterType="pd.hotel.model.YeyakDTO">
+		select * from pd_yeyak y join pd_hotel h on y.ye_lat = h.hot_lat and y.ye_lng=h.hot_lng and y.ye_bookdate=h.hot_bookdate
+	</select> -->
+	
+	<select id="yeyakList" resultType="pd.hotel.model.YeyakDTO">
+		select * from pd_yeyak where ye_userid = #{ye_userid}
+	</select>
+	
+<!-- 	<select id="hotelList" resultType="pd.hotel.model.HotelDTO" parameterType="pd.hotel.model.HotelDTO">
+		select * from pd_hotel where ye_idx = #{ye_idx}
+	</select> -->
+	
+	<delete id="yeyakDel" parameterType="int">
+		delete from pd_yeyak where ye_idx = #{ye_idx}
+	</delete>
+	
+</mapper>  

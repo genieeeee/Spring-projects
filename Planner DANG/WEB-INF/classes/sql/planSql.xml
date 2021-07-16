@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plan">
+
+	<select id="wri_num_max"  parameterType="String" resultType="int">
+		select max(plan_wrinum) from pd_calendar where mem_id=#{mem_id}
+	</select>
+	
+	<select id="wri_num_count" parameterType="String" resultType="int">
+		select count(plan_wrinum) from pd_calendar where mem_id=#{mem_id}
+	</select>
+		
+	<insert id="calendaritem_insert" parameterType="pd.plan.model.CalendarItem">
+		insert into pd_calendar values
+		(pd_calendar_event_id.nextval,
+		#{cal_nation},#{cal_startdate},
+		#{cal_startday},#{cal_enddate},
+		#{cal_endday},#{lat},#{lng},
+		#{plan_wrinum},#{mem_id})
+	</insert>
+	
+	<select id="calendarList" parameterType="Map" resultType="pd.plan.model.CalendarItem">
+		select * from pd_calendar where mem_id=#{mem_id} and plan_wrinum=#{plan_wrinum} order by event_id asc
+	</select>
+	
+	<insert id="calendaritem_detail_insert" parameterType="pd.plan.model.CalendarDetailItem">
+		insert into pd_calendar_detail values 
+		(#{event_id},#{cald_place},#{cald_nara},
+		#{cald_area},#{cald_startdate},#{cald_startday},
+		#{cald_enddate},#{cald_endday},#{lat},#{lng},
+		#{plan_wrinum},#{mem_id})
+	</insert>
+	
+	<select id="firstStartDate"  parameterType="Map" resultType="String">
+		select min(cal_startdate) from pd_calendar
+		where plan_wrinum=#{plan_wrinum} and mem_id=#{mem_id}
+	</select>
+	
+	<select id="lastEndDate" parameterType="Map" resultType="String" >
+		select max(cal_enddate) from pd_calendar
+		where plan_wrinum=#{plan_wrinum} and mem_id=#{mem_id}
+	</select>
+	
+	<select id="totaltermDate" parameterType="Map" resultType="Integer">
+		select trunc (to_date(#{cal_enddate},'YYYY-MM-DD HH24:MI:SS')- to_date(#{cal_startdate},'YYYY-MM-DD HH24:MI:SS')) result from dual
+	</select>
+	
+	<select id="calendarDetailOneList" parameterType="Map" resultType="pd.plan.model.CalendarDetailItem">
+		select * from pd_calendar_detail 
+		where mem_id=#{mem_id} and plan_wrinum=#{plan_wrinum} and event_id=#{event_id} and cald_nara=#{cald_nara}
+		order by event_id asc
+	</select>	
+	
+	<insert id="planWrite" parameterType="pd.plan.model.PlanDTO">
+		insert into pd_plan values
+		(pd_plan_idx.nextval,#{mem_id},
+		#{plan_wrinum},#{plan_term},
+		#{plan_title},#{plan_memo},
+		#{plan_sort},#{plan_withwhom},
+		#{plan_readnum},sysdate,sysdate)
+	</insert>
+	
+	<select id="planListCnt" parameterType="String" resultType="Integer">
+		select count(plan_idx) from pd_plan where mem_id=#{mem_id}
+	</select>
+	
+	<select id="myPlanList" parameterType="Map" resultType="pd.plan.model.PlanDTO">
+		select * from 
+					(select rownum as rnum,a. * from 
+					(select * from pd_plan  where mem_id=#{mem_id} order by plan_idx desc )a)b
+					where rnum<![CDATA[>=]]>#{startnum} and rnum<![CDATA[<=]]>#{endnum}
+	</select>
+	
+	<update id="readNum"  parameterType="Map">
+  		update pd_plan 
+  		set plan_readnum=#{plan_readnum}+1 
+  		where plan_idx=#{plan_idx} and plan_wrinum=#{plan_wrinum} and mem_id=#{mem_id}
+  	</update>
+  	
+ 	<select id="planContent" resultType="pd.plan.model.PlanDTO" parameterType="Map">	
+  		select * from pd_plan where plan_wrinum=#{plan_wrinum} and mem_id=#{mem_id}
+  	</select> 
+  			
+  	<delete id="calendarDetailDel" parameterType="Map">
+		delete from pd_calendar_detail where plan_wrinum=#{plan_wrinum} and mem_id=#{mem_id}
+	</delete>
+	
+  	<delete id="calendarDel" parameterType="Map">
+		delete from pd_calendar where plan_wrinum=#{plan_wrinum} and mem_id=#{mem_id}
+	</delete>	
+	
+	<delete id="planDel" parameterType="Map">
+		delete from pd_plan where plan_wrinum=#{plan_wrinum} and mem_id=#{mem_id}
+	</delete>
+	
+ 	<update id="planUpdate" parameterType="pd.plan.model.PlanDTO">
+		update pd_plan 
+		set plan_title=#{plan_title},plan_memo=#{plan_memo},plan_sort=#{plan_sort},plan_withwhom=#{plan_withwhom},plan_wriupdate=sysdate
+		where mem_id=#{mem_id} and plan_wrinum=#{plan_wrinum} and plan_idx=#{plan_idx}	
+	</update>
+	
+	<select id="getEvent" parameterType="Map" resultType="pd.plan.model.CalendarItem">
+		select event_id, cal_nation, cal_startdate, cal_enddate FROM pd_calendar where plan_wrinum=#{plan_wrinum} and mem_id=#{mem_id}
+	</select> 
+	
+	<select id="getPlanDetail" parameterType="Map" resultType="pd.plan.model.CalendarDetailItem">
+		select * from pd_calendar_detail where event_id=#{event_id} and cald_nara='프랑스' and plan_wrinum=2 and mem_id=1 		
+	</select>	
+	<insert id="addJimPlan" parameterType="pd.plan.model.PlanDTO">
+		insert into pd_jimPlan values
+		(#{plan_idx},#{mem_id },#{plan_wrinum },#{plan_term},#{plan_readnum},#{plan_title})
+	</insert>
+</mapper>
